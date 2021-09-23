@@ -8,8 +8,13 @@ FILENAME = "flask_app.py"
 def webhook():
    data = json.loads(request.data)
    print("New commit by: {}".format(data['commits'][0]['author']['name']))
-   if data["added"]:
-      if FILENAME in data["added"]:
+   if data["commits"]["added"]:
+      if FILENAME in data["commits"]["added"]:
+         resp = subprocess.Popen(["echo flask file updated"], stdout=subprocess.PIPE)
+         output = resp.communicate()[0]
+         print(output.decode("utf-8"))
+   elif data["commits"]["modified"]:
+      if FILENAME in data["commits"]["modified"]:
          resp = subprocess.Popen(["echo flask file updated"], stdout=subprocess.PIPE)
          output = resp.communicate()[0]
          print(output.decode("utf-8"))
