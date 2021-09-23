@@ -3,19 +3,20 @@ import subprocess
 import json
 
 app = Flask(__name__)
-FILENAME = "flask_app.py"
+ROOTFOLDER = "FlaskApp"
+FILENAME = f"{ROOTFOLDER}/flask_app.py"
 @app.route('/webhook',methods=['POST'])
 def webhook():
    data = json.loads(request.data)
    print("New commit by: {}".format(data['commits'][0]['author']['name']))
-   if data["commits"]["added"]:
-      if FILENAME in data["commits"]["added"]:
-         resp = subprocess.Popen(["echo flask file updated"], stdout=subprocess.PIPE)
+   if data["commits"][0]["added"]:
+      if FILENAME in data["commits"][0]["added"]:
+         resp = subprocess.Popen(["echo ", '"flask file updated"'], shell=True, stdout=subprocess.PIPE)
          output = resp.communicate()[0]
          print(output.decode("utf-8"))
-   elif data["commits"]["modified"]:
-      if FILENAME in data["commits"]["modified"]:
-         resp = subprocess.Popen(["echo flask file updated"], stdout=subprocess.PIPE)
+   elif data["commits"][0]["modified"]:
+      if FILENAME in data["commits"][0]["modified"]:
+         resp = subprocess.Popen(["echo ", '"flask file updated"'], shell=True, stdout=subprocess.PIPE)
          output = resp.communicate()[0]
          print(output.decode("utf-8"))
 
