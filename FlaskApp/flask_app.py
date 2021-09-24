@@ -5,6 +5,11 @@ import json
 app = Flask(__name__)
 ROOTFOLDER = "FlaskApp"
 FILENAME = f"{ROOTFOLDER}/flask_app.py"
+
+@app.route('/')
+def hello_world():
+	return 'Hello World!'
+
 @app.route('/webhook',methods=['POST'])
 def webhook():
    data = json.loads(request.data)
@@ -25,4 +30,4 @@ def webhook():
    return "OK"
 
 if __name__ == '__main__':
-   app.run(host='0.0.0.0',port=5000)
+   app.run()
