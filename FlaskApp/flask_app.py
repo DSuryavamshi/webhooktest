@@ -31,3 +31,11 @@ def webhook():
 
 if __name__ == '__main__':
    app.run()
+   # git pull
+   # airflow db init
+   # airflow schedule
+
+   # git
+   # gunicorn
+   # flask
+   # ngnix
