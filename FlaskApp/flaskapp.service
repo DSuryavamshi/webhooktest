@@ -1,0 +1,15 @@
+# sudo nano /etc/systemd/system/flaskapp.service
+[Unit]
+Description=Gunicorn instance for webhook test poc flask app
+After=network.target
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/flaskapp
+ExecStart=/usr/bin/gunicorn -b localhost:5000 app:app
+Restart=always
+[Install]
+WantedBy=multi-user.target
+# sudo systemctl daemon-reload
+# sudo systemctl start flaskapp
+# sudo systemctl enable flaskapp
